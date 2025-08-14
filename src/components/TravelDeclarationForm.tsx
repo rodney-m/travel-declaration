@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Card, Steps, Button, Space, message } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import { Card, Steps, Button, Space, Modal } from 'antd';
+import { LoadingOutlined, CheckCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import TravelerIdentification from './TravelerIdentification';
 import TravelHistory from './TravelHistory';
 import HealthDeclaration from './HealthDeclaration';
@@ -41,6 +41,9 @@ interface FormData {
 const TravelDeclarationForm: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [errorModalVisible, setErrorModalVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState<FormData>({
     first_name: '',
     last_name: '',
@@ -65,7 +68,7 @@ const TravelDeclarationForm: React.FC = () => {
       diarrhea: false,
       sore_throat: false,
       other_symptoms: ''
-    },
+      },
     description: 'Submitted at border post.'
   });
 
@@ -150,29 +153,41 @@ const TravelDeclarationForm: React.FC = () => {
       
       console.log('API Response:', response);
       
-      message.success('Travel declaration submitted successfully!');
-      
-      // Reset form after successful submission
-      resetForm();
+      // Show success modal
+      setSuccessModalVisible(true);
       
     } catch (error: any) {
       console.error('Submission error:', error);
       
       // Handle different types of errors
+      let errorMsg = 'An unexpected error occurred. Please try again.';
+      
       if (error.response) {
         // Server responded with error status
-        const errorMessage = error.response.data?.message || 'Server error occurred';
-        message.error(`Submission failed: ${errorMessage}`);
+        errorMsg = error.response.data?.message || 'Server error occurred';
       } else if (error.request) {
         // Network error
-        message.error('Network error. Please check your connection and try again.');
-      } else {
-        // Other error
-        message.error('An unexpected error occurred. Please try again.');
+        errorMsg = 'Network error. Please check your connection and try again.';
+      } else if (error.message) {
+        errorMsg = error.message;
       }
+      
+      setErrorMessage(errorMsg);
+      setErrorModalVisible(true);
+      
     } finally {
       setIsSubmitting(false);
     }
+  };
+
+  const handleSuccessModalOk = () => {
+    setSuccessModalVisible(false);
+    resetForm();
+  };
+
+  const handleErrorModalOk = () => {
+    setErrorModalVisible(false);
+    setErrorMessage('');
   };
 
   return (
@@ -216,6 +231,57 @@ const TravelDeclarationForm: React.FC = () => {
           </Space>
         </div>
       </Card>
+
+      {/* Success Modal */}
+      <Modal
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <CheckCircleOutlined style={{ color: '#52c41a', fontSize: '20px' }} />
+            <span>Success!</span>
+          </div>
+        }
+        open={successModalVisible}
+        onOk={handleSuccessModalOk}
+        okText="Start New Declaration"
+        cancelButtonProps={{ style: { display: 'none' } }}
+        centered
+      >
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <CheckCircleOutlined style={{ fontSize: '48px', color: '#52c41a', marginBottom: '16px' }} />
+          <h3 style={{ marginBottom: '8px', color: '#52c41a' }}>Declaration Submitted Successfully!</h3>
+          <p style={{ color: '#666', marginBottom: '0' }}>
+            Your travel declaration has been submitted and is being processed. 
+            You will receive a confirmation email shortly.
+          </p>
+        </div>
+      </Modal>
+
+      {/* Error Modal */}
+      <Modal
+        title={
+          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <ExclamationCircleOutlined style={{ color: '#ff4d4f', fontSize: '20px' }} />
+            <span>Submission Failed</span>
+          </div>
+        }
+        open={errorModalVisible}
+        onOk={handleErrorModalOk}
+        okText="Try Again"
+        cancelButtonProps={{ style: { display: 'none' } }}
+        centered
+      >
+        <div style={{ textAlign: 'center', padding: '20px 0' }}>
+          <ExclamationCircleOutlined style={{ fontSize: '48px', color: '#ff4d4f', marginBottom: '16px' }} />
+          <h3 style={{ marginBottom: '8px', color: '#ff4d4f' }}>Submission Failed</h3>
+          <p style={{ color: '#666', marginBottom: '0' }}>
+            {errorMessage}
+          </p>
+          <p style={{ color: '#999', fontSize: '12px', marginTop: '12px', marginBottom: '0' }}>
+            Please check your information and try again. If the problem persists, 
+            contact support for assistance.
+          </p>
+        </div>
+      </Modal>
     </div>
   );
 };

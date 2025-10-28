@@ -1,0 +1,18 @@
+{
+  "consent": {
+    "title": "Travel Health Declaration – Consent Required",
+    "description": "Before proceeding, please review how your information will be used. This declaration collects minimal personal and health details to help Africa CDC detect and respond to disease outbreaks. Your information will be stored securely in compliance with data-protection laws.",
+    "dataCollectionSummary": {
+      "title": "Data Collection Summary:",
+      "items": {
+        "dataCollected": "Data collected – identification, travel history, symptoms",
+        "purpose": "Purpose – public-health monitoring",
+        "dataProtection": "Data protection and retention standards"
+      }
+    },
+    "buttons": {
+      "consent": "I Consent and Continue",
+      "decline": "I Do Not Consent"
+    }
+  }
+}

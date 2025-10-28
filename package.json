@@ -16,9 +16,11 @@
     "axios": "^1.11.0",
     "bootstrap": "^5.3.8",
     "dayjs": "^1.11.13",
+    "i18next": "^25.6.0",
     "qrcode": "^1.5.4",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "react-i18next": "^16.2.1",
     "react-router-dom": "^7.9.4"
   },
   "devDependencies": {

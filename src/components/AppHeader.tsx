@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Select, Dropdown, Button } from 'antd';
+import { Dropdown, Button } from 'antd';
 import { GlobalOutlined } from '@ant-design/icons';
-import { useTheme } from '../theme/ThemeProvider';
+import { useTranslation } from 'react-i18next';
 import './AppHeader.css';
 
 interface Language {
@@ -21,11 +21,12 @@ interface AppHeaderProps {
 }
 
 const AppHeader: React.FC<AppHeaderProps> = ({ onLanguageChange }) => {
-  const { theme } = useTheme();
-  const [selectedLanguage, setSelectedLanguage] = useState<string>('en');
+  const { i18n } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState<string>(i18n.language || 'en');
 
   const handleLanguageChange = (languageCode: string) => {
     setSelectedLanguage(languageCode);
+    i18n.changeLanguage(languageCode);
     onLanguageChange?.(languageCode);
   };
 

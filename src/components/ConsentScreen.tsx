@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 import { useTheme } from '../theme/ThemeProvider';
 import './ConsentScreen.css';
 
@@ -11,6 +12,7 @@ interface ConsentScreenProps {
 
 const ConsentScreen: React.FC<ConsentScreenProps> = ({ onConsent, onDecline }) => {
   const { theme } = useTheme();
+  const { t } = useTranslation();
 
   return (
     <div className="consent-screen">
@@ -18,32 +20,29 @@ const ConsentScreen: React.FC<ConsentScreenProps> = ({ onConsent, onDecline }) =
         <div className="consent-content">
           {/* Header */}
           <h1 className="consent-title">
-            Travel Health Declaration – Consent Required
+            {t('consent.title')}
           </h1>
 
           {/* Introductory Text */}
           <p className="consent-description">
-            Before proceeding, please review how your information will be used. 
-            This declaration collects minimal personal and health details to help 
-            Africa CDC detect and respond to disease outbreaks. Your information 
-            will be stored securely in compliance with data-protection laws.
+            {t('consent.description')}
           </p>
 
           {/* Data Collection Summary */}
           <div className="data-collection-summary">
-            <h3 className="summary-title">Data Collection Summary:</h3>
+            <h3 className="summary-title">{t('consent.dataCollectionSummary.title')}</h3>
             <div className="summary-items">
               <div className="summary-item">
                 <CheckCircleOutlined className="summary-icon" />
-                <span>Data collected – identification, travel history, symptoms</span>
+                <span>{t('consent.dataCollectionSummary.items.dataCollected')}</span>
               </div>
               <div className="summary-item">
                 <CheckCircleOutlined className="summary-icon" />
-                <span>Purpose – public-health monitoring</span>
+                <span>{t('consent.dataCollectionSummary.items.purpose')}</span>
               </div>
               <div className="summary-item">
                 <CheckCircleOutlined className="summary-icon" />
-                <span>Data protection and retention standards</span>
+                <span>{t('consent.dataCollectionSummary.items.dataProtection')}</span>
               </div>
             </div>
           </div>
@@ -61,7 +60,7 @@ const ConsentScreen: React.FC<ConsentScreenProps> = ({ onConsent, onDecline }) =
                 color: theme.primary.contrast,
               }}
             >
-              I Consent and Continue
+              {t('consent.buttons.consent')}
             </Button>
             
             <Button
@@ -74,7 +73,7 @@ const ConsentScreen: React.FC<ConsentScreenProps> = ({ onConsent, onDecline }) =
                 color: theme.text.primary,
               }}
             >
-              I Do Not Consent
+              {t('consent.buttons.decline')}
             </Button>
           </div>
         </div>

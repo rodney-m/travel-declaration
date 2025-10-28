@@ -1,0 +1,18 @@
+{
+  "consent": {
+    "title": "Déclaration de Santé de Voyage – Consentement Requis",
+    "description": "Avant de continuer, veuillez examiner comment vos informations seront utilisées. Cette déclaration collecte des détails personnels et de santé minimaux pour aider l'Africa CDC à détecter et répondre aux épidémies de maladies. Vos informations seront stockées en toute sécurité conformément aux lois sur la protection des données.",
+    "dataCollectionSummary": {
+      "title": "Résumé de la Collecte de Données :",
+      "items": {
+        "dataCollected": "Données collectées – identification, historique de voyage, symptômes",
+        "purpose": "Objectif – surveillance de la santé publique",
+        "dataProtection": "Normes de protection et de conservation des données"
+      }
+    },
+    "buttons": {
+      "consent": "Je Consens et Continue",
+      "decline": "Je Ne Consens Pas"
+    }
+  }
+}

@@ -1,0 +1,8 @@
+<svg width="180" height="180" viewBox="0 0 180 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="180" height="180" rx="22" fill="#007BFF"/>
+  <rect x="45" y="45" width="90" height="90" rx="8" fill="white"/>
+  <text x="90" y="100" text-anchor="middle" fill="#007BFF" font-family="Arial, sans-serif" font-size="45" font-weight="bold">T</text>
+</svg>
+
+
+

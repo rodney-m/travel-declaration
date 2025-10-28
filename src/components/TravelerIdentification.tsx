@@ -1,23 +1,84 @@
 import React from 'react';
 import { Form, Input, Select } from 'antd';
+import { UserOutlined, EnvironmentOutlined } from '@ant-design/icons';
+import { useTheme } from '../theme/ThemeProvider';
+import PhoneNumberInput from './PhoneNumberInput';
+import './TravelerIdentification.css';
 
 const { Option } = Select;
 
+interface Trip {
+  departure_country: string;
+  destination_country: string;
+  start_date: string;
+  end_date: string;
+}
+
+interface HealthData {
+  fever: boolean;
+  temperature_celsius: number | null;
+  cough: boolean;
+  difficulty_breathing: boolean;
+  runny_nose: boolean;
+  diarrhea: boolean;
+  sore_throat: boolean;
+  other_symptoms: string;
+}
+
+interface FormData {
+  title?: string;
+  first_name: string;
+  last_name: string;
+  gender?: string;
+  email: string;
+  phone_number: string;
+  phone_country_code?: string;
+  passport_number: string;
+  nationality: string;
+  port_type?: string;
+  port_of_capture?: string;
+  trips: Trip[];
+  health: HealthData;
+  description: string;
+}
+
 interface TravelerIdentificationProps {
-  formData: any;
-  setFormData: (data: any) => void;
+  formData: FormData;
+  setFormData: (data: FormData) => void;
 }
 
 const TravelerIdentification: React.FC<TravelerIdentificationProps> = ({
   formData,
   setFormData
 }) => {
+  const { theme } = useTheme();
   const handleInputChange = (field: string, value: string) => {
     setFormData({
       ...formData,
       [field]: value
     });
   };
+
+  const titles = [
+    { value: 'Mr', label: 'Mr' },
+    { value: 'Mrs', label: 'Mrs' },
+    { value: 'Ms', label: 'Ms' },
+    { value: 'Dr', label: 'Dr' },
+    { value: 'Prof', label: 'Prof' }
+  ];
+
+  const genders = [
+    { value: 'Male', label: 'Male' },
+    { value: 'Female', label: 'Female' },
+    { value: 'Other', label: 'Other' }
+  ];
+
+
+  const portTypes = [
+    { value: 'Airport', label: 'Airport' },
+    { value: 'Land Border', label: 'Land Border' },
+    { value: 'Sea Port', label: 'Sea Port' }
+  ];
 
   const countries = [
     { code: 'ZA', name: 'South Africa' },
@@ -190,66 +251,149 @@ const TravelerIdentification: React.FC<TravelerIdentificationProps> = ({
   ];
 
   return (
-    <Form layout="vertical">
-      <Form.Item label="First Name" required>
-        <Input
-          placeholder="Enter your first name"
-          value={formData.first_name}
-          onChange={(e) => handleInputChange('first_name', e.target.value)}
-        />
-      </Form.Item>
+    <div className="traveler-identification-form">
+      {/* Personal Information Section */}
+      <div className="form-section">
+        <div className="section-header">
+          <UserOutlined 
+            className="section-icon" 
+            style={{ color: theme.primary.main }}
+          />
+          <h3 className="section-title">Personal Information</h3>
+        </div>
+        
+        <Form layout="vertical" className="form-fields">
+          <Form.Item label="Title" className="form-item">
+            <Select
+              placeholder="Select title"
+              value={formData.title}
+              onChange={(value) => handleInputChange('title', value)}
+            >
+              {titles.map(title => (
+                <Option key={title.value} value={title.value}>
+                  {title.label}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
 
-      <Form.Item label="Last Name" required>
-        <Input
-          placeholder="Enter your last name"
-          value={formData.last_name}
-          onChange={(e) => handleInputChange('last_name', e.target.value)}
-        />
-      </Form.Item>
+          <Form.Item label="First Name *" className="form-item">
+            <Input
+              placeholder="Enter your first name"
+              value={formData.first_name}
+              onChange={(e) => handleInputChange('first_name', e.target.value)}
+            />
+          </Form.Item>
 
-      <Form.Item label="Email Address" required>
-        <Input
-          type="email"
-          placeholder="example@email.com"
-          value={formData.email}
-          onChange={(e) => handleInputChange('email', e.target.value)}
-        />
-      </Form.Item>
+          <Form.Item label="Last Name *" className="form-item">
+            <Input
+              placeholder="Enter your last name"
+              value={formData.last_name}
+              onChange={(e) => handleInputChange('last_name', e.target.value)}
+            />
+          </Form.Item>
 
-      <Form.Item label="Phone Number" required>
-        <Input
-          placeholder="+XX-XXXX-XXXX"
-          value={formData.phone_number}
-          onChange={(e) => handleInputChange('phone_number', e.target.value)}
-        />
-      </Form.Item>
+          <Form.Item label="Gender" className="form-item">
+            <Select
+              placeholder="Select gender"
+              value={formData.gender}
+              onChange={(value) => handleInputChange('gender', value)}
+            >
+              {genders.map(gender => (
+                <Option key={gender.value} value={gender.value}>
+                  {gender.label}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
 
-      <Form.Item label="Passport Number" required>
-        <Input
-          placeholder="Enter passport number"
-          value={formData.passport_number}
-          onChange={(e) => handleInputChange('passport_number', e.target.value)}
-        />
-      </Form.Item>
+          <Form.Item label="Email Address *" className="form-item">
+            <Input
+              type="email"
+              placeholder="example@email.com"
+              value={formData.email}
+              onChange={(e) => handleInputChange('email', e.target.value)}
+            />
+          </Form.Item>
 
-      <Form.Item label="Nationality" required>
-        <Select
-          placeholder="Select your nationality"
-          value={formData.nationality}
-          onChange={(value) => handleInputChange('nationality', value)}
-          showSearch
-          filterOption={(input, option) =>
-            option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
-          }
-        >
-          {countries.map(country => (
-            <Option key={country.code} value={country.code}>
-              {country.name}
-            </Option>
-          ))}
-        </Select>
-      </Form.Item>
-    </Form>
+          <Form.Item label="Phone Number *" className="form-item">
+            <PhoneNumberInput
+              value={formData.phone_number}
+              countryCode={formData.phone_country_code || '+27'}
+              onChange={(phoneNumber, countryCode) => {
+                setFormData({
+                  ...formData,
+                  phone_number: phoneNumber,
+                  phone_country_code: countryCode
+                });
+              }}
+              placeholder="Enter phone number"
+            />
+          </Form.Item>
+
+          <Form.Item label="Passport Number *" className="form-item">
+            <Input
+              placeholder="Enter passport number"
+              value={formData.passport_number}
+              onChange={(e) => handleInputChange('passport_number', e.target.value)}
+            />
+          </Form.Item>
+
+          <Form.Item label="Nationality *" className="form-item">
+            <Select
+              placeholder="Select nationality"
+              value={formData.nationality}
+              onChange={(value) => handleInputChange('nationality', value)}
+              showSearch
+              filterOption={(input, option) =>
+                String(option?.children || '').toLowerCase().indexOf(input.toLowerCase()) >= 0
+              }
+            >
+              {countries.map(country => (
+                <Option key={country.code} value={country.code}>
+                  {country.name}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+        </Form>
+      </div>
+
+      {/* Port of Capture Section */}
+      <div className="form-section">
+        <div className="section-header">
+          <EnvironmentOutlined 
+            className="section-icon" 
+            style={{ color: theme.primary.main }}
+          />
+          <h3 className="section-title">Port of Capture</h3>
+        </div>
+        
+        <Form layout="vertical" className="form-fields">
+          <Form.Item label="Type of Port" className="form-item">
+            <Select
+              placeholder="Select port type"
+              value={formData.port_type}
+              onChange={(value) => handleInputChange('port_type', value)}
+            >
+              {portTypes.map(port => (
+                <Option key={port.value} value={port.value}>
+                  {port.label}
+                </Option>
+              ))}
+            </Select>
+          </Form.Item>
+
+          <Form.Item label="Port of Capture" className="form-item">
+            <Input
+              placeholder="e.g. OR Tambo, Beitbridge, Mombasa"
+              value={formData.port_of_capture}
+              onChange={(e) => handleInputChange('port_of_capture', e.target.value)}
+            />
+          </Form.Item>
+        </Form>
+      </div>
+    </div>
   );
 };
 

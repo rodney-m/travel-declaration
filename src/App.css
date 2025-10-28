@@ -5,36 +5,34 @@
 
 .App {
   min-height: 100vh;
-  background: #f5f5f5;
-  padding: 20px;
+  background: var(--theme-bg-default);
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  transition: background-color 0.3s ease;
+}
+
+.app-main {
+  flex: 1;
+  padding: 16px;
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 100vw;
 }
 
 .travel-declaration-form {
   width: 100%;
-  max-width: 600px;
+  max-width: 1152px; /* max-w-6xl equivalent */
   margin: 0 auto;
   padding: 0;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-.steps-card {
-  margin-bottom: 24px;
-  width: 100%;
-  max-width: 100%;
-}
-
-.form-steps {
-  margin-bottom: 24px;
-  width: 100%;
-  max-width: 100%;
-}
-
-.content-card {
-  width: 100%;
-  max-width: 100%;
+.form-content-wrapper {
+  padding: 24px;
 }
 
 .form-content {
@@ -44,18 +42,64 @@
 }
 
 .form-actions {
-  margin-top: 24px;
-  text-align: right;
+  margin-top: 32px;
   width: 100%;
+}
+
+.form-actions-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.back-button {
+  background: white;
+  border-color: var(--theme-border-default);
+  color: var(--theme-text-primary);
+  border-radius: 8px;
+  height: 48px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-button:hover {
+  background: #f5f5f5;
+  border-color: var(--theme-text-primary);
+  color: var(--theme-text-primary);
+}
+
+.next-button,
+.submit-button {
+  background: var(--theme-secondary-main);
+  border-color: var(--theme-secondary-main);
+  color: var(--theme-secondary-contrast);
+  border-radius: 8px;
+  height: 48px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-left: auto;
+}
+
+.next-button:hover,
+.submit-button:hover {
+  background: var(--theme-secondary-light);
+  border-color: var(--theme-secondary-light);
 }
 
 /* Override Ant Design constraints */
 .ant-card {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  background: white;
+  background: var(--theme-bg-paper);
+  border-color: var(--theme-border-light);
   width: 100% !important;
   max-width: 100% !important;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .ant-card-body {
@@ -117,19 +161,20 @@
 
 .ant-form-item-label > label {
   font-weight: 500;
-  color: #333;
+  color: var(--theme-text-primary);
 }
 
 .ant-btn-primary {
-  background: #1890ff;
-  border-color: #1890ff;
+  background: var(--theme-primary-main);
+  border-color: var(--theme-primary-main);
   border-radius: 6px;
   font-weight: 500;
+  transition: all 0.3s ease;
 }
 
 .ant-btn-primary:hover {
-  background: #40a9ff;
-  border-color: #40a9ff;
+  background: var(--theme-primary-light);
+  border-color: var(--theme-primary-light);
 }
 
 .ant-select-selector {
@@ -150,31 +195,13 @@
 
 /* Progress indicator styling */
 .ant-steps-item-process .ant-steps-item-icon {
-  background: #1890ff;
-  border-color: #1890ff;
+  background: var(--theme-primary-main);
+  border-color: var(--theme-primary-main);
 }
 
 .ant-steps-item-finish .ant-steps-item-icon {
-  background: #52c41a;
-  border-color: #52c41a;
+  background: var(--theme-primary-main);
+  border-color: var(--theme-primary-main);
 }
 
-/* Mobile responsive design */
-@media (max-width: 768px) {
-  .App {
-    padding: 10px;
-  }
-  
-  .travel-declaration-form {
-    max-width: 100%;
-    padding: 0 10px;
-  }
-  
-  .ant-steps-item-title {
-    font-size: 11px !important;
-  }
-  
-  .ant-steps-item-description {
-    font-size: 10px !important;
-  }
-}
+/* Mobile-first design - no responsive breakpoints needed */

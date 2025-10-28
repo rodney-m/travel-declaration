@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import { Card, Steps, Button, Space, Modal } from 'antd';
-import { LoadingOutlined, CheckCircleOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Modal } from 'antd';
+import { ExclamationCircleOutlined, ArrowLeftOutlined, ArrowRightOutlined } from '@ant-design/icons';
+import StepHeader from './StepHeader';
+import InfoBox from './InfoBox';
 import TravelerIdentification from './TravelerIdentification';
 import TravelHistory from './TravelHistory';
 import HealthDeclaration from './HealthDeclaration';
-import { travelDeclarationAPI } from '../services/api';
+import ReviewDeclaration from './ReviewDeclaration';
+import SuccessScreen from './SuccessScreen';
 
-const { Step } = Steps;
 
 interface Trip {
   departure_country: string;
@@ -41,7 +43,8 @@ interface FormData {
 const TravelDeclarationForm: React.FC = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [successModalVisible, setSuccessModalVisible] = useState(false);
+  const [showSuccessScreen, setShowSuccessScreen] = useState(false);
+  const [referenceId, setReferenceId] = useState('');
   const [errorModalVisible, setErrorModalVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [formData, setFormData] = useState<FormData>({
@@ -148,28 +151,32 @@ const TravelDeclarationForm: React.FC = () => {
       // Log the data being sent (for debugging)
       console.log('Submitting form data:', formData);
       
-      // Use real API
-      const response = await travelDeclarationAPI.submitDeclaration(formData);
+      // Simulate API delay
+      await new Promise(resolve => setTimeout(resolve, 1000));
       
-      console.log('API Response:', response);
+      // Generate reference ID (dummy for testing)
+      const generatedReferenceId = `HDC-${new Date().getFullYear()}-${Math.floor(Math.random() * 1000000).toString().padStart(6, '0')}`;
+      setReferenceId(generatedReferenceId);
       
-      // Show success modal
-      setSuccessModalVisible(true);
+      // Show success screen
+      setShowSuccessScreen(true);
       
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Submission error:', error);
       
       // Handle different types of errors
       let errorMsg = 'An unexpected error occurred. Please try again.';
       
-      if (error.response) {
+      if (error && typeof error === 'object' && 'response' in error) {
         // Server responded with error status
-        errorMsg = error.response.data?.message || 'Server error occurred';
-      } else if (error.request) {
+        const axiosError = error as { response: { data?: { message?: string } } };
+        errorMsg = axiosError.response.data?.message || 'Server error occurred';
+      } else if (error && typeof error === 'object' && 'request' in error) {
         // Network error
         errorMsg = 'Network error. Please check your connection and try again.';
-      } else if (error.message) {
-        errorMsg = error.message;
+      } else if (error && typeof error === 'object' && 'message' in error) {
+        const errorWithMessage = error as { message: string };
+        errorMsg = errorWithMessage.message;
       }
       
       setErrorMessage(errorMsg);
@@ -180,81 +187,86 @@ const TravelDeclarationForm: React.FC = () => {
     }
   };
 
-  const handleSuccessModalOk = () => {
-    setSuccessModalVisible(false);
-    resetForm();
-  };
 
   const handleErrorModalOk = () => {
     setErrorModalVisible(false);
     setErrorMessage('');
   };
 
+  const handleReturnHome = () => {
+    setShowSuccessScreen(false);
+    setReferenceId('');
+    resetForm();
+  };
+
+  // Add the review step after handleSubmit is defined
+  const allSteps = [
+    ...steps,
+    {
+      title: 'Review Your Declaration',
+      content: (
+        <ReviewDeclaration
+          formData={formData}
+          onEdit={setCurrentStep}
+          onSubmit={handleSubmit}
+          isSubmitting={isSubmitting}
+        />
+      ),
+    },
+  ];
+
+  // Show success screen if submission was successful
+  if (showSuccessScreen) {
+    return (
+      <SuccessScreen
+        formData={formData}
+        referenceId={referenceId}
+        onReturnHome={handleReturnHome}
+      />
+    );
+  }
+
   return (
     <div className="travel-declaration-form">
-      <Card title="Travel Declaration" className="steps-card">
-        <Steps current={currentStep} className="form-steps">
-          {steps.map(item => (
-            <Step key={item.title} title={item.title} />
-          ))}
-        </Steps>
-      </Card>
-
-      <Card className="content-card">
+      <StepHeader currentStep={currentStep} totalSteps={allSteps.length} />
+      
+      <div className="form-content-wrapper">
+        <InfoBox>
+          Provide details exactly as shown in your travel documents.
+        </InfoBox>
+        
         <div className="form-content">
-          {steps[currentStep].content}
+          {allSteps[currentStep].content}
         </div>
 
-        <div className="form-actions">
-          <Space>
-            {currentStep > 0 && (
-              <Button onClick={prev} disabled={isSubmitting}>
-                Back
-              </Button>
-            )}
-            {currentStep < steps.length - 1 && (
-              <Button type="primary" onClick={next} disabled={isSubmitting}>
-                Next
-              </Button>
-            )}
-            {currentStep === steps.length - 1 && (
+        {/* Only show form actions for steps 0-2, step 3 (review) has its own actions */}
+        {currentStep < allSteps.length - 1 && (
+          <div className="form-actions">
+            <div className="form-actions-buttons">
+              {currentStep > 0 && (
+                <Button 
+                  onClick={prev} 
+                  disabled={isSubmitting}
+                  className="back-button"
+                  icon={<ArrowLeftOutlined />}
+                >
+                  Back
+                </Button>
+              )}
               <Button 
                 type="primary" 
-                onClick={handleSubmit}
-                loading={isSubmitting}
-                icon={isSubmitting ? <LoadingOutlined /> : undefined}
+                onClick={next} 
                 disabled={isSubmitting}
+                className="next-button"
               >
-                {isSubmitting ? 'Submitting...' : 'Submit'}
+                Next
+                <ArrowRightOutlined />
               </Button>
-            )}
-          </Space>
-        </div>
-      </Card>
-
-      {/* Success Modal */}
-      <Modal
-        title={
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <CheckCircleOutlined style={{ color: '#52c41a', fontSize: '20px' }} />
-            <span>Success!</span>
+            </div>
           </div>
-        }
-        open={successModalVisible}
-        onOk={handleSuccessModalOk}
-        okText="Start New Declaration"
-        cancelButtonProps={{ style: { display: 'none' } }}
-        centered
-      >
-        <div style={{ textAlign: 'center', padding: '20px 0' }}>
-          <CheckCircleOutlined style={{ fontSize: '48px', color: '#52c41a', marginBottom: '16px' }} />
-          <h3 style={{ marginBottom: '8px', color: '#52c41a' }}>Declaration Submitted Successfully!</h3>
-          <p style={{ color: '#666', marginBottom: '0' }}>
-            Your travel declaration has been submitted and is being processed. 
-            You will receive a confirmation email shortly.
-          </p>
-        </div>
-      </Modal>
+        )}
+      </div>
+
 
       {/* Error Modal */}
       <Modal

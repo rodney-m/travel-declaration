@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Select, DatePicker, Button, Space, Card, Collapse } from 'antd';
+import { Form, Select, DatePicker, Button, Space, Collapse } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
@@ -239,7 +239,7 @@ const TravelHistory: React.FC<TravelHistoryProps> = ({
                   onChange={(value) => handleTripChange(index, 'departure_country', value)}
                   showSearch
                   filterOption={(input, option) =>
-                    option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    String(option?.children || '').toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
                   {countries.map(country => (
@@ -257,7 +257,7 @@ const TravelHistory: React.FC<TravelHistoryProps> = ({
                   onChange={(value) => handleTripChange(index, 'destination_country', value)}
                   showSearch
                   filterOption={(input, option) =>
-                    option?.children?.toLowerCase().indexOf(input.toLowerCase()) >= 0
+                    String(option?.children || '').toLowerCase().indexOf(input.toLowerCase()) >= 0
                   }
                 >
                   {countries.map(country => (

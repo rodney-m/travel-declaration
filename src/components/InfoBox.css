@@ -1,0 +1,34 @@
+.info-box {
+  display: flex;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.info-box-accent {
+  width: 4px;
+  flex-shrink: 0;
+}
+
+.info-box-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  flex: 1;
+}
+
+.info-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.info-text {
+  font-size: 14px;
+  color: var(--theme-text-primary);
+  line-height: 1.4;
+}
+
+
+

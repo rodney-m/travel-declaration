@@ -70,3 +70,8 @@ const HealthDeclaration: React.FC<HealthDeclarationProps> = ({
 export default HealthDeclaration;
 
 
+
+
+
+
+

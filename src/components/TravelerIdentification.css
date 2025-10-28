@@ -1,0 +1,57 @@
+.traveler-identification-form {
+  width: 100%;
+}
+
+.form-section {
+  margin-bottom: 32px;
+}
+
+.form-section:last-child {
+  margin-bottom: 0;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--theme-border-light);
+}
+
+.section-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--theme-text-primary);
+  margin: 0;
+}
+
+.form-fields {
+  width: 100%;
+}
+
+.form-item {
+  margin-bottom: 20px;
+}
+
+.form-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Override Ant Design form item styles */
+.form-item .ant-form-item-label > label {
+  font-weight: 500;
+  color: var(--theme-text-primary);
+  font-size: 14px;
+}
+
+.form-item .ant-form-item-label > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+  color: var(--theme-accent-main);
+  font-size: 16px;
+  margin-right: 4px;
+}

@@ -1,0 +1,171 @@
+.submitted-records {
+  padding: 24px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.records-header {
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.filters-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.filters-card .ant-card-body {
+  padding: 20px;
+}
+
+.table-controls-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table-controls-card .ant-card-body {
+  padding: 16px 20px;
+}
+
+.submitted-records .ant-table {
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  table-layout: fixed;
+}
+
+.submitted-records .ant-table-thead > tr > th {
+  background-color: #fafafa;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid #f0f0f0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.submitted-records .ant-table-tbody > tr > td {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.submitted-records .ant-table-tbody > tr:hover > td {
+  background-color: #f5f5f5;
+}
+
+.submitted-records .ant-tag {
+  border-radius: 4px;
+  font-size: 11px;
+  padding: 2px 8px;
+  margin: 2px;
+}
+
+.submitted-records .ant-pagination {
+  margin-top: 16px;
+}
+
+.submitted-records .ant-pagination .ant-pagination-item-active {
+  background-color: #1890ff;
+  border-color: #1890ff;
+}
+
+.submitted-records .ant-pagination .ant-pagination-item-active a {
+  color: white;
+}
+
+.submitted-records .ant-card {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.submitted-records .ant-input-affix-wrapper {
+  border-radius: 6px;
+}
+
+.submitted-records .ant-select {
+  border-radius: 6px;
+}
+
+.submitted-records .ant-btn {
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.submitted-records .ant-btn-primary {
+  box-shadow: 0 2px 4px rgba(24, 144, 255, 0.3);
+}
+
+.submitted-records .ant-modal {
+  border-radius: 8px;
+}
+
+.submitted-records .ant-modal-content {
+  border-radius: 8px;
+}
+
+.submitted-records .ant-checkbox-group {
+  display: block;
+}
+
+.submitted-records .ant-checkbox-wrapper {
+  margin-bottom: 8px;
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .submitted-records {
+    padding: 16px;
+  }
+  
+  .records-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .filters-card .ant-row {
+    margin: 0 !important;
+  }
+  
+  .filters-card .ant-col {
+    margin-bottom: 16px;
+  }
+  
+  .table-controls-card .ant-row {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .submitted-records .ant-table {
+    font-size: 12px;
+  }
+  
+  .submitted-records .ant-table-thead > tr > th {
+    padding: 8px 4px;
+    font-size: 10px;
+  }
+  
+  .submitted-records .ant-table-tbody > tr > td {
+    padding: 8px 4px;
+  }
+}
+
+@media (max-width: 480px) {
+  .submitted-records {
+    padding: 12px;
+  }
+  
+  .records-header h2 {
+    font-size: 20px;
+  }
+  
+  .submitted-records .ant-card-body {
+    padding: 12px;
+  }
+}

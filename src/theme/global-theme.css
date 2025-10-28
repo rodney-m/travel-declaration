@@ -1,0 +1,185 @@
+/* Global Theme CSS Variables */
+:root {
+  /* Primary Colors - Africa CDC Gold (Primary brand color) */
+  --theme-primary-main: #B4A269;
+  --theme-primary-light: #C7B882;
+  --theme-primary-dark: #9A8A5A;
+  --theme-primary-contrast: #FFFFFF;
+  
+  /* Secondary Colors - Africa CDC Green (Secondary actions) */
+  --theme-secondary-main: #1a5632;
+  --theme-secondary-light: #2d7a4a;
+  --theme-secondary-dark: #143d25;
+  --theme-secondary-contrast: #FFFFFF;
+  
+  /* Accent Colors - Highlight/emphasis color (Africa CDC Red) */
+  --theme-accent-main: #9f2241;
+  --theme-accent-light: #b84a5f;
+  --theme-accent-dark: #7a1a32;
+  --theme-accent-contrast: #FFFFFF;
+  
+  /* Background Colors */
+  --theme-bg-default: #f5f5f5;
+  --theme-bg-paper: #ffffff;
+  
+  /* Text Colors */
+  --theme-text-primary: #333333;
+  --theme-text-secondary: #666666;
+  
+  /* Border Colors */
+  --theme-border-default: #d9d9d9;
+  --theme-border-light: #f0f0f0;
+}
+
+/* Global theme-aware styles */
+body {
+  background-color: var(--theme-bg-default);
+  color: var(--theme-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Override Ant Design components globally */
+.ant-btn-primary {
+  background-color: var(--theme-primary-main) !important;
+  border-color: var(--theme-primary-main) !important;
+  color: var(--theme-primary-contrast) !important;
+}
+
+.ant-btn-primary:hover {
+  background-color: var(--theme-primary-light) !important;
+  border-color: var(--theme-primary-light) !important;
+}
+
+.ant-btn-primary:active {
+  background-color: var(--theme-primary-dark) !important;
+  border-color: var(--theme-primary-dark) !important;
+}
+
+.ant-steps-item-process .ant-steps-item-icon {
+  background-color: var(--theme-primary-main) !important;
+  border-color: var(--theme-primary-main) !important;
+}
+
+.ant-steps-item-finish .ant-steps-item-icon {
+  background-color: var(--theme-primary-main) !important;
+  border-color: var(--theme-primary-main) !important;
+}
+
+/* Secondary Color Components */
+.ant-btn-default {
+  background-color: var(--theme-secondary-main) !important;
+  border-color: var(--theme-secondary-main) !important;
+  color: var(--theme-secondary-contrast) !important;
+}
+
+.ant-btn-default:hover {
+  background-color: var(--theme-secondary-light) !important;
+  border-color: var(--theme-secondary-light) !important;
+}
+
+/* Accent Color Components */
+.ant-btn-danger {
+  background-color: var(--theme-accent-main) !important;
+  border-color: var(--theme-accent-main) !important;
+  color: var(--theme-accent-contrast) !important;
+}
+
+.ant-btn-danger:hover {
+  background-color: var(--theme-accent-light) !important;
+  border-color: var(--theme-accent-light) !important;
+}
+
+/* Alert Components with Generic Colors */
+.ant-alert-success {
+  background-color: rgba(26, 86, 50, 0.1) !important;
+  border-color: var(--theme-primary-main) !important;
+  color: var(--theme-primary-main) !important;
+}
+
+.ant-alert-error {
+  background-color: rgba(159, 34, 65, 0.1) !important;
+  border-color: var(--theme-accent-main) !important;
+  color: var(--theme-accent-main) !important;
+}
+
+.ant-alert-warning {
+  background-color: rgba(180, 162, 105, 0.1) !important;
+  border-color: var(--theme-secondary-main) !important;
+  color: var(--theme-secondary-main) !important;
+}
+
+.ant-card {
+  background-color: var(--theme-bg-paper) !important;
+  border-color: var(--theme-border-light) !important;
+}
+
+.ant-form-item-label > label {
+  color: var(--theme-text-primary) !important;
+}
+
+.ant-input,
+.ant-select-selector {
+  border-color: var(--theme-border-default) !important;
+}
+
+.ant-input:focus,
+.ant-select-focused .ant-select-selector {
+  border-color: var(--theme-primary-main) !important;
+  box-shadow: 0 0 0 2px rgba(180, 162, 105, 0.2) !important;
+}
+
+/* Custom theme-aware utility classes */
+.theme-primary {
+  color: var(--theme-primary-main) !important;
+}
+
+.theme-primary-bg {
+  background-color: var(--theme-primary-main) !important;
+}
+
+.theme-primary-border {
+  border-color: var(--theme-primary-main) !important;
+}
+
+/* Secondary Color Utilities */
+.theme-secondary {
+  color: var(--theme-secondary-main) !important;
+}
+
+.theme-secondary-bg {
+  background-color: var(--theme-secondary-main) !important;
+}
+
+.theme-secondary-border {
+  border-color: var(--theme-secondary-main) !important;
+}
+
+/* Accent Color Utilities */
+.theme-accent {
+  color: var(--theme-accent-main) !important;
+}
+
+.theme-accent-bg {
+  background-color: var(--theme-accent-main) !important;
+}
+
+.theme-accent-border {
+  border-color: var(--theme-accent-main) !important;
+}
+
+/* Text and Background Utilities */
+.theme-text-primary {
+  color: var(--theme-text-primary) !important;
+}
+
+.theme-text-secondary {
+  color: var(--theme-text-secondary) !important;
+}
+
+.theme-bg-paper {
+  background-color: var(--theme-bg-paper) !important;
+}
+
+.theme-bg-default {
+  background-color: var(--theme-bg-default) !important;
+}

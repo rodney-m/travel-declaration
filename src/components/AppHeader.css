@@ -1,0 +1,79 @@
+.app-header {
+  width: 100%;
+  background: var(--theme-bg-paper);
+  border-bottom: 1px solid var(--theme-border-light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.header-content {
+  width: 100%;
+  max-width: 1152px; /* max-w-6xl equivalent */
+  margin: 0 auto;
+  padding: 0 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+}
+
+.africa-cdc-logo {
+  height: 50px;
+  width: auto;
+  object-fit: contain;
+}
+
+.header-right-section {
+  display: flex;
+  align-items: center;
+}
+
+
+.language-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.language-selector:hover {
+  opacity: 0.8;
+  transform: translateY(-1px);
+}
+
+.selected-flag {
+  font-size: 18px;
+}
+
+.selected-language {
+  font-size: 14px;
+}
+
+.language-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+}
+
+.language-option .flag {
+  font-size: 18px;
+}
+
+.language-option .language-name {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Mobile-first design - no responsive breakpoints needed */
